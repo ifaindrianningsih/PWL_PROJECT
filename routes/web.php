@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WalimuridController;
+use App\Http\Controllers\WaliMuridController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PembayaranController;
 use Illuminate\Support\Facades\Auth;
@@ -37,10 +37,10 @@ Route::get('/siswa', function () {
     return view('siswa.index', compact('title'));
 });
 
-Route::get('/kelas', function () {
-    $title = 'Data Kelas';
-    return view('kelas', compact('title'));
-});
+// Route::get('/kelas', function () {
+//     $title = 'Data Kelas';
+//     return view('kelas', compact('title'));
+// });
 
 Auth::routes();
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kelas;
+use App\Models\Jurusan;
 use DB;
 
 class KelasController extends Controller
@@ -16,9 +17,11 @@ class KelasController extends Controller
     public function index()
     {
         // Mengambil semua isi tabel
-        $kelas = $kelas = DB::table('kelas')->get(); 
+        $kelas = $kelas =Kelas::with('jurusan')->get(); 
+        $jurusan = $jurusan = DB::table('jurusan')->get();
         $title = 'Data Kelas';
-        return view('kelas.index', compact('kelas','title'));
+        $paginate = Kelas::orderBy('id', 'asc')->paginate(4);
+        return view('kelas.index', compact('kelas','jurusan','title','paginate'));
     }
 
     /**
@@ -30,7 +33,9 @@ class KelasController extends Controller
     {
         //
         $title = 'Data Kelas';
-        return view('kelas.create', compact('title'));
+        $jurusan = Jurusan::all();
+        $jrs = $jurusan = DB::table('jurusan')->get();
+        return view('kelas.create', compact('title','jrs','jurusan'));
     }
 
     /**
@@ -44,11 +49,22 @@ class KelasController extends Controller
         //melakukan validasi data
         $request->validate([
             'nama_kelas' => 'required',
+            'jurusan' => 'required',
             'total_siswa' => 'required',
         ]);
 
+        $kelas = new Kelas;
+        $kelas->nama_kelas = $request->get('nama_kelas');
+        $kelas->total_siswa = $request->get('total_siswa');
+
+        $jurusan = new Jurusan;
+        $jurusan->id = $request->get('jurusan');
+
+        $kelas->jurusan()->associate($jurusan);
+        $kelas->save();
+        
         //fungsi eloquent untuk menambah data
-        Kelas::create($request->all());
+        //Kelas::create($request->all());
         //jika data berhasil ditambahkan, akan kembali ke halaman utama
         return redirect()->route('kelas.index')
         ->with('success', 'Data Kelas Berhasil Ditambahkan');
@@ -63,9 +79,10 @@ class KelasController extends Controller
     public function show($id)
     {
         //menampilkan detail data kelas berdasarkan Id kelas
-        $kelas = Kelas::find($id);
+        $kelas = Kelas::with('jurusan')->where('id',$id)->first();
+        $jurusan = $jurusan = DB::table('jurusan')->get();
         $title = 'Data Kelas';
-        return view('kelas.detail', compact('kelas', 'title'));
+        return view('kelas.detail', compact('kelas', 'jurusan', 'title'));
     }
 
     /**
@@ -77,9 +94,11 @@ class KelasController extends Controller
     public function edit($id)
     {
         //menampilkan detail data kelas berdasarkan id kelas untuk diedit
-        $kelas = DB::table('kelas')->where('id', $id)->first();;
+        $kelas = Kelas::with('jurusan')->where('id', $id)->first();
+        $jurusan = Jurusan::all();
+        $jrs = $jurusan = DB::table('jurusan')->get();
         $title = 'Data Kelas';
-        return view('kelas.edit', compact('kelas','title'));
+        return view('kelas.edit', compact('kelas','jurusan','jrs','title'));
     }
 
     /**
@@ -95,10 +114,22 @@ class KelasController extends Controller
         $request->validate([
             'nama_kelas' => 'required',
             'total_siswa' => 'required',
+            'jurusan' => 'required',
         ]);
 
+        
+        $kelas = Kelas::with('jurusan')->where('id',$id)->first();
+        $kelas->nama_kelas = $request->get('nama_kelas');
+        $kelas->total_siswa = $request->get('total_siswa');
+
+        $jurusan = new Jurusan;
+        $jurusan->id = $request->get('jurusan');
+
+        $kelas->jurusan()->associate($jurusan);
+        $kelas->save();
+
         //fungsi eloquent untuk mengupdate data inputan kita
-        Kelas::find($id)->update($request->all());
+        //Kelas::find($id)->update($request->all());
         //jika data berhasil diupdate, akan kembali ke halaman utama
         return redirect()->route('kelas.index')
             ->with('success', 'Data Kelas Berhasil Diupdate');

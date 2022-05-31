@@ -22,8 +22,8 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-7">
-            <div class="card card-secondary">
+          <div class="col-md-6">
+            <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">{{ $title }}</h3>
                     <div class="card-tools">
@@ -35,47 +35,65 @@
                     </button>
                     </div>
                 </div>
+                
                 <div class="card-body">
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                    <a class="btn btn-success" href="{{ route('kelas.create')}}"> Tambah Kelas</a> 
+                    <br></br>
+
+                    @if ($message = Session::get('success'))
+                      <div class="alert alert-secondary">
+                        <p>{{ $message }}</p>
+                      </div>
                     @endif
-                    <form method="post" action="{{ route('kelas.store') }}" id="myForm">
-                    @csrf
-                        <div class="form-group">
-                            <label for="nama_kelas">Nama Kelas</label>
-                            <input type="text" name="nama_kelas" class="form-control" id="nama_kelas" aria-describedby="nama_kelas" >
-                        </div>
-                        <div class="form-group">
-                            <label for="jurusan">Jurusan</label>
-                            <select name="jurusan" id="jurusan" class="form-control">
-                              @foreach ($jurusan as $jr)
-                                <option value="{{$jr->id}}">{{$jr->nama_jurusan}}</option>
-                              @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="total_siswa">Total Siswa</label>
-                            <input type="text" name="total_siswa" class="form-control" id="total_siswa" aria-describedby="total_siswa" >
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                    
+                    <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Kelas</th>
+                                <th>Total siswa</th>
+                                <th width="240px">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($kelas as $kls)
+                            <tr>
+                                <td>{{ $kls ->id }}</td> 
+                                <td>{{ $kls ->nama_kelas }}</td>
+                                <td>{{ $kls ->total_siswa }}</td>
+                                <td>
+                                  <form action="{{ route('kelas.destroy',$kls->id) }}" method="POST">
+                                    <a class="btn btn-info" href="{{ route('kelas.show',$kls->id) }}">Show</a>
+                                    <a class="btn btn-primary" href="{{ route('kelas.edit',$kls->id) }}">Edit</a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                  </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                            </tbody>
+                    </table>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    Footer
+                    <div class="paginate">
+                      <div class="container">
+                        <div class="row">
+                            <div class="mx-auto">
+                                <div class="paginate-button col-md-12">
+                                    {{ $kelas->links() }}
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
                 </div>
             </div>
           </div>
 
-          <div class="col-md-5">
-            <div class="card card-secondary">
+          <div class="col-md-6">
+            <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Data Jurusan</h3>
                 <div class="card-tools">
@@ -94,10 +112,11 @@
                             <th>No</th>
                             <th>Jurusan</th>
                             <th>Total Kelas</th>
+                            <th  width="240px">Action</th>
                         </tr>
                     </thead>
                         <tbody>
-                        @foreach ($jrs as $jur)
+                        @foreach ($jurusan as $jur)
                             <tr>
                                 <td>{{ $jur ->id }}</td> <!-- belum -->
                                 <td>{{ $jur ->nama_jurusan }}</td>

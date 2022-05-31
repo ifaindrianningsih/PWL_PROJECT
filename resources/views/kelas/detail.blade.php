@@ -22,7 +22,7 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-7">
             <div class="card card-info">
                 <div class="card-header">
                     <h3 class="card-title">Detail Kelas</h3>
@@ -37,6 +37,7 @@
                 </div>
                 <div class="card-body">
                       <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><b>Jurusan: </b>{{$kelas->jurusan->nama_jurusan}}</li>
                             <li class="list-group-item"><b>Kelas: </b>{{$kelas->nama_kelas}}</li>
                             <li class="list-group-item"><b>Jumlah Siswa: </b>{{$kelas->total_siswa}}</li>
                       </ul>
@@ -46,8 +47,8 @@
             </div>
           </div>
 
-          <div class="col-md-6">
-            <div class="card">
+          <div class="col-md-5">
+            <div class="card card-secondary">
               <div class="card-header">
                 <h3 class="card-title">Data Jurusan</h3>
                 <div class="card-tools">
@@ -60,28 +61,28 @@
                 </div>
               </div>
               <div class="card-body">
-                <div class="float-right my-2">
-                    <a class="btn btn-success" href="#"> Tambah Jurusan</a> 
-                </div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Jurusan</th>
-                            <th>Action</th>
+                            <th>Total Kelas</th>
                         </tr>
                     </thead>
                         <tbody>
+                        @foreach ($jurusan as $jur)
                             <tr>
-                                <td>-</td> <!-- belum -->
-                                <td>-</td>
+                                <td>{{ $jur ->id }}</td> <!-- belum -->
+                                <td>{{ $jur ->nama_jurusan }}</td>
+                                <td>{{ $jur ->total_kelas }}</td>
                             </tr>
+                        @endforeach
                         </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                    Footer
+                    
               </div>
             </div>
           </div>
