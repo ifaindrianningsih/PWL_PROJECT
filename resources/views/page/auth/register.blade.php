@@ -90,3 +90,4 @@
 <script src="{{asset('template')}}/dist/js/adminlte.min.js"></script>
 </body>
 </html>
+<!-- registrasi -->
