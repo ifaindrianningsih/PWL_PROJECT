@@ -31,3 +31,6 @@ Route::get('/siswa', function () {
     $title = 'Data Siswa';
     return view('siswa', compact('title'));
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
