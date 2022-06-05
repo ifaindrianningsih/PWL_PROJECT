@@ -76,3 +76,4 @@ class RegisterController extends Controller
         return view('page.auth.register');
     }
 }
+// registrasi
