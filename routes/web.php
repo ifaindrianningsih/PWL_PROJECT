@@ -24,13 +24,19 @@ Auth::routes();
 //
 Route::get('/dashboard', function () {
     $title = 'Dashboard';
-    return view('siswa', compact('title'));
+    return view('layouts.dashboard', compact('title')); // mengganti link dashboard
 });
 
 Route::get('/siswa', function () {
     $title = 'Data Siswa';
     return view('siswa', compact('title'));
 });
+
+Route::get('/kelas', function () {
+    $title = 'Data Kelas';
+    return view('kelas', compact('title'));
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

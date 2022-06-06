@@ -40,13 +40,12 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
           </li>
           
-          <li class="nav-item "> <!-- dikasih parameter "menu-open" -->
-            <a href="#" class="nav-link "> <!-- dikasih parameter "active" -->
+          <li class="nav-item "> 
+            <a href="#" class="nav-link "> 
               <i class="nav-icon far fa-plus-square"></i>
               <p>
                 Kelola Data
