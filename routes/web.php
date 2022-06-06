@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WalmurController;
+use App\Http\Controllers\KelasController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +32,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/siswa', function () {
     $title = 'Data Siswa';
-    return view('siswa', compact('title'));
+    return view('siswa.index', compact('title'));
 });
 
 Route::get('/kelas', function () {
@@ -43,3 +45,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('walmur',WalmurController::class);
+
+Route::resource('kelas', KelasController::class);
+//Route::resource('siswa', SiswaController::class);

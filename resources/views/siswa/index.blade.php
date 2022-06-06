@@ -34,7 +34,35 @@
             </div>
         </div>
           <div class="card-body">
-            Rencana Data Siswa
+              <div class="float-right my-2">
+                  <a class="btn btn-primary" href="#"> Tambah Siswa</a> 
+              </div>
+              <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>NIS</th>
+                        <th>Nama</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Kelas</th>
+                        <th>Jurusan</th>
+                        <th>Alamat</th>
+                        <th>Wali Murid</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>-</td> <!-- belum -->
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    </tbody>
+              </table>
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
