@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WalmurController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,5 @@ Route::get('/kelas', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('walmur',WalmurController::class);

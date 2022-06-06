@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="{{asset('template')}}/index.html" class="brand-link">
       <img src="{{asset('template')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">E-SPP</span>
     </a>
 
     <!-- Sidebar -->
@@ -70,7 +70,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('wali-murid')}}" class="nav-link ">
+                <a href="{{ url('walmur')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Wali Murid</p>
                 </a>
