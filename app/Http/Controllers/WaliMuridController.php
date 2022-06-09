@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\WaliMurid;
 use Illuminate\Http\Request;
+use App\Models\WaliMurid;
+use Illuminate\Support\Facades\DB;
 
-class WalmurController extends Controller
+class WaliMuridController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +15,8 @@ class WalmurController extends Controller
      */
     public function index(Request $request)
     {
-        //
         $pagination = 5;
-        $walmur = WaliMurid::when($request->keyword, function($query) use ($request){
+        $walimurid = WaliMurid::when($request->keyword, function($query) use ($request){
             $query
             ->where('id','like',"%{$request->keyword}%")
             ->orWhere('nama_siswa','like',"%{$request->keyword}%")
@@ -26,7 +26,7 @@ class WalmurController extends Controller
 
 
             $title = 'Data Wali Murid';
-            return view('walmur.walmurIndex',compact('walmur','title'))
+            return view('walimurid.index',compact('walimurid','title'))
                 ->with('i',(request()->input('page',1)-1)*$pagination);
     }
 
@@ -37,8 +37,8 @@ class WalmurController extends Controller
      */
     public function create()
     {
-        $walmur = WaliMurid::all();
-        return view('walmur.walmurIndex',['walmur'=>$walmur]);
+        $title = 'Data Wali Murid';
+        return view('walimurid.create', compact('title'));
     }
 
     /**
@@ -49,9 +49,8 @@ class WalmurController extends Controller
      */
     public function store(Request $request)
     {
-        $request -> validate([
-            'id'=> 'required|string|max:10',
-            'nama_siswa' => 'required|string',
+        $request->validate([
+            'nama_siswa' => 'required',
             'nama_ayah' => 'required',
             'pekerjaan_ayah' => 'required',
             'umur_ayah' => 'required',
@@ -61,20 +60,10 @@ class WalmurController extends Controller
             'alamat' => 'required',
         ]);
 
-        $walmur = new WaliMurid();
-        $walmur->id = $request->get('id');
-        $walmur->nama_siswa = $request->get('nama_siswa');
-        $walmur->nama_ayah = $request->get('nama_ayah');
-        $walmur->pekerjaan_ayah = $request->get('pekerjaan_ayah');
-        $walmur->umur_ayah = $request->get('umur_ayah');
-        $walmur->nama_ibu = $request->get('nama_ibu');
-        $walmur->pekerjaan_ibu = $request->get('pekerjaan_ibu');
-        $walmur->umur_ibu = $request->get('umur_ibu');
-        $walmur->alamat = $request->get('alamat');
+        WaliMurid::create($request->all());
 
-        $walmur->save();
-
-        return redirect()->route('walmur.index')->with('success', 'Data Wali Murid Berhasil Ditambahkan'); 
+        return redirect()->route('walimurid.index')
+        ->with('success', 'Data Wali Murid Berhasil Ditambahkan');
     }
 
     /**
@@ -85,8 +74,9 @@ class WalmurController extends Controller
      */
     public function show($id)
     {
-        $walmur = WaliMurid::find($id);
-        return view('walmur.walmurDetail',compact('walmur'));
+        $walimurid = WaliMurid::find($id);
+        $title = 'Data Wali Murid';
+        return view('walimurid.detail', compact('walimurid', 'title'));
     }
 
     /**
@@ -97,8 +87,9 @@ class WalmurController extends Controller
      */
     public function edit($id)
     {
-        $walmur = WaliMurid::find($id);
-        return view('walmur.walmurEdit',compact('walmur'));
+        $walimurid = DB::table('walimurid')->where('id', $id)->first();;
+        $title = 'Data Wali Murid';
+        return view('walimurid.edit', compact('walimurid','title'));
     }
 
     /**
@@ -110,9 +101,8 @@ class WalmurController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request -> validate([
-            'id'=> 'required|string|max:10',
-            'nama_siswa' => 'required|string',
+        $request->validate([
+            'nama_siswa' => 'required',
             'nama_ayah' => 'required',
             'pekerjaan_ayah' => 'required',
             'umur_ayah' => 'required',
@@ -122,21 +112,11 @@ class WalmurController extends Controller
             'alamat' => 'required',
         ]);
 
-        $walmur = WaliMurid::where('id', $id)->first();
-        $walmur->id = $request->get('id');
-        $walmur->nama_siswa = $request->get('nama_siswa');
-        $walmur->nama_ayah = $request->get('nama_ayah');
-        $walmur->pekerjaan_ayah = $request->get('pekerjaan_ayah');
-        $walmur->umur_ayah = $request->get('umur_ayah');
-        $walmur->nama_ibu = $request->get('nama_ibu');
-        $walmur->pekerjaan_ibu = $request->get('pekerjaan_ibu');
-        $walmur->umur_ibu = $request->get('umur_ibu');
-        $walmur->alamat = $request->get('alamat');
+        WaliMurid::find($id)->update($request->all());
         
-        $walmur->save();
-
-        return redirect()->route('walmur.index')
-        ->with('success', 'Data Wali Murid Berhasil Diupdate');
+        return redirect()->route('walimurid.index')
+            ->with('success', 'Data Wali Murid Berhasil Diupdate');
+            return redirect()->route('mahasiswa.index')->with('success', 'Mahasiswa Berhasil Diupdate');
     }
 
     /**
@@ -148,7 +128,7 @@ class WalmurController extends Controller
     public function destroy($id)
     {
         WaliMurid::find($id)->delete();
-        return redirect()->route('walmur.index')
-            -> with('success', 'Data Wali Murid Berhasil Dihapus');
+        return redirect()->route('walimurid.index')
+        -> with('success', 'Data Wali Murid Berhasil Dihapus');
     }
 }

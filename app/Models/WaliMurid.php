@@ -8,13 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class WaliMurid extends Model
 {
     use HasFactory;
-    protected $table = 'walmur';
-    protected $primaryKey = 'id';
-    protected $keyType = 'string';
-    public $incrementing = false;
+    protected $table='walimurid'; 
+    protected $primaryKey = 'id'; 
 
     protected $fillable = [
-        'id',
         'nama_siswa',
         'nama_ayah',
         'pekerjaan_ayah',
@@ -23,5 +20,5 @@ class WaliMurid extends Model
         'pekerjaan_ibu',
         'umur_ibu',
         'alamat',
-    ];
+        ];
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWalmurTable extends Migration
+class CreateWaliMuridsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateWalmurTable extends Migration
      */
     public function up()
     {
-        Schema::create('walmur', function (Blueprint $table) {
+        Schema::create('walimurid', function (Blueprint $table) {
             $table->id();
             $table->string('nama_siswa',15);
             $table->string('nama_ayah',15);
@@ -34,6 +34,6 @@ class CreateWalmurTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('walmur');
+        Schema::dropIfExists('walimurid');
     }
 }
