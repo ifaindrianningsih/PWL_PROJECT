@@ -56,7 +56,7 @@
               <li class="nav-item">
                 <a href="{{ url('siswa')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Siswa</p>
+                  <p>Data Siswa</p>
                 </a>
               </li>
             </ul>
@@ -64,7 +64,7 @@
               <li class="nav-item">
                 <a href="{{ route('kelas.index')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Kelas</p>
+                  <p>Data Kelas</p>
                 </a>
               </li>
             </ul>
@@ -72,15 +72,15 @@
               <li class="nav-item">
                 <a href="{{ url('walimurid')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Wali Murid</p>
+                  <p>Data Wali Murid</p>
                 </a>
               </li>
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('tagihan')}}" class="nav-link ">
+                <a href="{{ url('pembayaran')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Tagihan</p>
+                  <p>Data Tagihan</p>
                 </a>
               </li>
             </ul>

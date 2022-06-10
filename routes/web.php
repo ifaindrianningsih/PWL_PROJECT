@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WalimuridController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\PembayaranController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -49,3 +50,5 @@ Route::resource('walimurid',WaliMuridController::class);
 
 Route::resource('kelas', KelasController::class);
 //Route::resource('siswa', SiswaController::class);
+
+Route::resource('pembayaran',PembayaranController::class);
