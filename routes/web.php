@@ -5,6 +5,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\WaliMuridController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\TabunganController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -55,3 +56,6 @@ Route::get('siswa/cari/data', [SiswaController::class, 'cari'])->name('siswa.car
 Route::get('kelas/cari/data', [KelasController::class, 'cari'])->name('kelas.cari');
 
 Route::resource('pembayaran',PembayaranController::class);
+
+Route::resource('tabungan', TabunganController::class);
+Route::get('tabungan/cari/data', [TabunganController::class, 'cari'])->name('tabungan.cari');

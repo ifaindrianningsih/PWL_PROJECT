@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Kelas;
+use App\Models\Tabungan;
 
 class Jurusan extends Model
 {
@@ -20,5 +21,10 @@ class Jurusan extends Model
     public function kelas()
     {
         return $this->hasMany(Kelas::class);
+    }
+
+    public function Tabungan()
+    {
+        return $this->hasMany(Tabungan::class);
     }
 }
