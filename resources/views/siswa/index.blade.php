@@ -34,9 +34,15 @@
             </div>
         </div>
           <div class="card-body">
-              <div class="float-right my-2">
-                  <a class="btn btn-primary" href="#"> Tambah Siswa</a> 
-              </div>
+                  <a class="btn btn-primary" href="{{ route('siswa.create')}}"> Tambah Siswa</a> 
+                    <br></br>
+
+                    @if ($message = Session::get('success'))
+                      <div class="alert alert-secondary">
+                        <p>{{ $message }}</p>
+                      </div>
+                    @endif 
+
               <table id="example2" class="table table-bordered table-hover">
                     <thead>
                     <tr>
@@ -45,28 +51,48 @@
                         <th>Nama</th>
                         <th>Jenis Kelamin</th>
                         <th>Kelas</th>
-                        <th>Jurusan</th>
                         <th>Alamat</th>
                         <th>Wali Murid</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>-</td> <!-- belum -->
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                    </tr>
+                    @foreach ($paginate as $siswa)
+                            <tr>
+                                <td><img width="100px" height="100px" src="{{asset('storage/'.$siswa->foto)}}"></td>
+                                <td>{{ $siswa ->nis }}</td> 
+                                <td>{{ $siswa ->nama }}</td>
+                                <td>{{ $siswa ->jeniskelamin }}</td>
+                                <td>{{ $siswa ->kelas->nama_kelas }}</td>
+                                <td>{{ $siswa ->alamat }}</td>
+                                <td>{{ $siswa ->walmur->nama_ayah}}</td>
+                                <td>
+                                  <form action="{{ route('siswa.destroy',$siswa->nis) }}" method="POST">
+                                    <a class="btn btn-info" href="{{ route('siswa.show',$siswa->nis) }}"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-primary" href="{{ route('siswa.edit',$siswa->nis) }}"><i class="fa fa-edit"></i></a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                  </form>
+                                </td>
+                            </tr>
+                            @endforeach
                     </tbody>
               </table>
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            Footer
+                   <div class="paginate">
+                      <div class="container">
+                        <div class="row">
+                            <div class="mx-auto">
+                                <div class="paginate-button col-md-12">
+                                    {{ $paginate->links() }}
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+                  </div>
           </div>
         <!-- /.card-footer-->
       </div>

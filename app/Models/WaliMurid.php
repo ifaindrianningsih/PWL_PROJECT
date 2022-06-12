@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Siswa;
 
 class WaliMurid extends Model
 {
@@ -20,5 +21,10 @@ class WaliMurid extends Model
         'pekerjaan_ibu',
         'umur_ibu',
         'alamat',
-        ];
+    ];
+
+    public function siswa()
+    {
+        return $this->hasOne(Siswa::class);
+    }
 }

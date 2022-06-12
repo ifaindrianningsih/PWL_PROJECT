@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\WaliMuridController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PembayaranController;
@@ -32,10 +33,10 @@ Route::get('/dashboard', function () {
     return view('layouts.dashboard', compact('title')); // mengganti link dashboard
 });
 
-Route::get('/siswa', function () {
-    $title = 'Data Siswa';
-    return view('siswa.index', compact('title'));
-});
+// Route::get('/siswa', function () {
+//     $title = 'Data Siswa';
+//     return view('siswa.index', compact('title'));
+// });
 
 // Route::get('/kelas', function () {
 //     $title = 'Data Kelas';
@@ -49,6 +50,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('walimurid',WaliMuridController::class);
 
 Route::resource('kelas', KelasController::class);
-//Route::resource('siswa', SiswaController::class);
+Route::resource('siswa', SiswaController::class);
 
 Route::resource('pembayaran',PembayaranController::class);

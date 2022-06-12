@@ -18,6 +18,11 @@ class Kelas extends Model
         'total_siswa',
     ];
 
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class);
+    }
+
     public function jurusan()
     {
         return $this->belongsTo(Jurusan::class);
