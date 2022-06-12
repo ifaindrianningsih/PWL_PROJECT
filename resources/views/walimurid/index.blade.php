@@ -81,11 +81,11 @@
                                 <td>{{ $wm ->alamat }}</td>
                                 <td>
                                   <form action="{{ route('walimurid.destroy',$wm->id) }}" method="POST">
-                                    <a class="btn btn-info" href="{{ route('walimurid.show',$wm->id) }}">Show</a>
-                                    <a class="btn btn-primary" href="{{ route('walimurid.edit',$wm->id) }}">Edit</a>
+                                    <a class="btn btn-info" href="{{ route('walimurid.show',$wm->id) }}"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-primary" href="{{ route('walimurid.edit',$wm->id) }}"><i class="fa fa-edit"></i></a>
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                   </form>
                                 </td>
                             </tr>

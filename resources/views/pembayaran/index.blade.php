@@ -76,12 +76,12 @@
                                 <td>{{ $pmb ->total }}</td>
                                 <td>{{ $pmb ->status }}</td>
                                 <td>
-                                  <form action="{{ route('pembayaran.destroy',$pmb->id) }}" method="POST">
-                                    <a class="btn btn-info" href="{{ route('pembayaran.show',$pmb->id) }}">Show</a>
-                                    <a class="btn btn-primary" href="{{ route('pembayaran.edit',$pmb->id) }}">Edit</a>
+                                <form action="{{ route('pembayaran.destroy',$pmb->id) }}" method="POST">
+                                    <a class="btn btn-info" href="{{ route('pembayaran.show',$pmb->id) }}"><i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-primary" href="{{ route('pembayaran.edit',$pmb->id) }}"><i class="fa fa-edit"></i></a>
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                   </form>
                                 </td>
                             </tr>
