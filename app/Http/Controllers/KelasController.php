@@ -20,7 +20,7 @@ class KelasController extends Controller
         $kelas = $kelas =Kelas::with('jurusan')->get(); 
         $jurusan = $jurusan = DB::table('jurusan')->get();
         $title = 'Data Kelas';
-        $paginate = Kelas::orderBy('id', 'asc')->paginate(4);
+        $paginate = Kelas::orderBy('id', 'asc')->paginate(3);
         return view('kelas.index', compact('kelas','jurusan','title','paginate'));
     }
 
@@ -147,5 +147,19 @@ class KelasController extends Controller
         Kelas::find($id)->delete();
         return redirect()->route('kelas.index')
         -> with('success', 'Kelas Berhasil Dihapus');
+    }
+
+    public function cari(Request $request)
+    {
+        $keyword = $request->cari;
+        $paginate = Kelas::where('nama_kelas', 'like', '%' . $keyword . '%')->paginate(3);
+        $paginate->appends(['keyword' => $keyword]);
+        $title = 'Pencarian Data Kelas';
+
+        $kelas = $kelas =Kelas::with('jurusan')->get(); 
+        $jurusan = $jurusan = DB::table('jurusan')->get();
+
+        return view('kelas.index', compact('kelas','jurusan','paginate','title'))->with('i', (request()->input('page', 1) - 1) * 5);
+
     }
 }

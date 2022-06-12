@@ -37,7 +37,7 @@
                 </div>
                 
                 <div class="card-body">
-                    <a class="btn btn-success" href="{{ route('kelas.create')}}"> Tambah Kelas</a> 
+                    <a class="btn btn-primary" href="{{ route('kelas.create')}}"> Tambah Kelas</a> 
                     <br></br>
 
                     @if ($message = Session::get('success'))
@@ -45,6 +45,14 @@
                         <p>{{ $message }}</p>
                       </div>
                     @endif
+
+                    <form class="form" method="get" action="{{ route('kelas.cari') }}">
+                      <div class="form-group w-100 mb-3">
+                          <label for="search" class="d-block mr-2">Pencarian Data Siswa</label>
+                          <input type="text" name="cari" class="form-control w-50 d-inline" id="cari" placeholder="Nama Kelas">
+                          <button type="submit" class="btn btn-success mb-1">Cari</button>
+                      </div>
+                    </form>
                     
                     <table class="table table-bordered">
                             <thead>

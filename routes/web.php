@@ -51,5 +51,7 @@ Route::resource('walimurid',WaliMuridController::class);
 
 Route::resource('kelas', KelasController::class);
 Route::resource('siswa', SiswaController::class);
+Route::get('siswa/cari/data', [SiswaController::class, 'cari'])->name('siswa.cari');
+Route::get('kelas/cari/data', [KelasController::class, 'cari'])->name('kelas.cari');
 
 Route::resource('pembayaran',PembayaranController::class);
