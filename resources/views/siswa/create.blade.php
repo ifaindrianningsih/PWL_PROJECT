@@ -46,8 +46,8 @@
                         </ul>
                     </div>
                     @endif
-                    <form method="post" action="{{ route('siswa.store') }}" id="myForm">
-                    @csrf
+                    <form action="{{ route('siswa.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="form-group">
                             <label for="nis">NIS</label>
                             <input type="text" name="nis" class="form-control" id="nis" aria-describedby="nis" >
@@ -65,7 +65,7 @@
                         </div>
                         <div class="form-group">
                             <label for="foto">Foto</label>
-                            <input type="file" name="foto" class="form-control" id="foto" aria-describedby="foto" >
+                            <input type="file" class="form-control" required="required" name="foto" >
                         </div>
                         <div class="form-group">
                             <label for="kelas">Kelas</label>

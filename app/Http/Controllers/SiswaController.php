@@ -22,7 +22,7 @@ class SiswaController extends Controller
         $siswa = $siswa =Siswa::all(); 
         $kelas = $kelas = DB::table('kelas')->get();
         $title = 'Data Siswa';
-        $paginate = Siswa::orderBy('id_siswa', 'asc')->paginate(4);
+        $paginate = Siswa::orderBy('id_siswa', 'asc')->paginate(3);
         return view('siswa.index', compact('siswa','kelas','title','paginate'));
     }
 
@@ -35,10 +35,12 @@ class SiswaController extends Controller
     {
         //
         $title = 'Data Siswa';
+        // $siswa = Siswa::all();
         $kelas = Kelas::all();
         $walmur = WaliMurid::all();
-        $kls = $kelas = DB::table('kelas')->get();
-        return view('siswa.create', compact('title','kls','kelas','walmur'));
+        // $kls = $kelas = DB::table('kelas')->get();
+        // $walimurid = $walimurid= DB::table('walimurid')->get();
+        return view('siswa.create', compact('title','kelas','walmur'));
     }
 
     /**
@@ -63,24 +65,23 @@ class SiswaController extends Controller
         $image = $request->file('foto');
         if($image)
         {
-            $image_name = $request->file('foto')->store('images','public');
+           $image_name = $request->file('foto')->store('images','public');
         }
 
         $siswa = new Siswa;
-        $siswa->foto = $request->get($image_name);
+        $siswa->foto = $image_name;
         $siswa->nis = $request->get('nis');
         $siswa->nama = $request->get('nama');
         $siswa->jeniskelamin = $request->get('jeniskelamin');
-        $siswa->nis = $request->get('nis');
         $siswa->alamat = $request->get('alamat');
-        $siswa->walmur = $request->get('walmur');
 
         $kelas = new Kelas;
         $kelas->id = $request->get('kelas');
         $walmur = new WaliMurid;
         $walmur->id = $request->get('walmur');
 
-        $siswa->kelas()->associate($kelas,$walmur);
+        $siswa->kelas()->associate($kelas);
+        $siswa->walmur()->associate($walmur);
         $siswa->save();
         
         //fungsi eloquent untuk menambah data
@@ -147,7 +148,6 @@ class SiswaController extends Controller
         $siswa->nis = $request->get('nis');
         $siswa->nama = $request->get('nama');
         $siswa->jeniskelamin = $request->get('jeniskelamin');
-        $siswa->nis = $request->get('nis');
         $siswa->alamat = $request->get('alamat');
         if($siswa->foto && file_exists(storage_path('app/public/'.$siswa->foto)))
         {
@@ -161,7 +161,8 @@ class SiswaController extends Controller
         $walmur = new WaliMurid;
         $walmur->id = $request->get('walmur');
 
-        $siswa->kelas()->associate($kelas,$walmur);
+        $siswa->kelas()->associate($kelas);
+        $siswa->walmur()->associate($walmur);
         $siswa->save();
 
         //fungsi eloquent untuk mengupdate data inputan kita
@@ -177,11 +178,22 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_siswa)
+    public function destroy($nis)
     {
         //
-        Siswa::find($nis)->delete();
+        Siswa::where('nis',$nis)->delete();
         return redirect()->route('siswa.index')
         -> with('success', 'Siswa Berhasil Dihapus');
+    }
+
+    public function cari(Request $request)
+    {
+        $keyword = $request->cari;
+        $paginate = Siswa::where('nis', 'like', '%' . $keyword . '%')
+            ->orWhere('nama', 'like', '%' . $keyword . '%')
+            ->paginate(3);
+        $paginate->appends(['keyword' => $keyword]);
+        $title = 'Pencarian Data Siswa';
+        return view('siswa.index', compact('paginate','title'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }

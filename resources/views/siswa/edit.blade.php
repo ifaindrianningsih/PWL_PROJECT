@@ -61,7 +61,8 @@
                             <label for="jeniskelamin">Jenis Kelamin</label>
                             {{-- <input type="jeniskelamin" name="jeniskelamin" class="form-control" id="jeniskelamin" value="{{ $siswa->jeniskelamin }}" aria-describedby="jeniskelamin" > --}}
                             <select name="jeniskelamin" id="jeniskelamin" class="form-control">
-                                <option value="{{ $siswa->jeniskelamin }}">{{$siswa->jeniskelamin}}</option>
+                                <option value="Perempuan">Perempuan</option>
+                                <option value="Laki-laki">Laki-laki</option>
                             </select>
                         </div>
                         <div class="form-group">
