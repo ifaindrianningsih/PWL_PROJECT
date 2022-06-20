@@ -49,8 +49,8 @@ class TabunganController extends Controller
         $request->validate([
             'nama_siswa' => 'required',
             'nis' => 'required',
-            'kelas_id' => 'required',
-            'jurusan_id' => 'required',
+            'kelas' => 'required',
+            'jurusan' => 'required',
             'nominal' => 'required',
         ]);
 
@@ -165,7 +165,7 @@ class TabunganController extends Controller
     {
         $keyword = $request->cari;
         $paginate = Tabungan::where('nis', 'like', '%' . $keyword . '%')
-            ->orWhere('nama', 'like', '%' . $keyword . '%')
+            ->orWhere('nama_siswa', 'like', '%' . $keyword . '%')
             ->paginate(3);
         $paginate->appends(['keyword' => $keyword]);
         $title = 'Pencarian Data Tabungan Siswa';

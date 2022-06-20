@@ -16,8 +16,8 @@ class Tabungan extends Model
     protected $fillable = [
         'nama_siswa',
         'nis',
-        'kelas',
-        'jurusan',
+        'kelas_id',
+        'jurusan_id',
         'nominal',
     ];
 

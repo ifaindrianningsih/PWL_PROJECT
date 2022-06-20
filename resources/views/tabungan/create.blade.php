@@ -50,7 +50,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="nama">Nama Siswa</label>
-                            <input type="text" name="nama" class="form-control" id="nama" aria-describedby="nama" >
+                            <input type="text" name="nama_siswa" class="form-control" id="nama" aria-describedby="nama" >
                         </div>
                         <div class="form-group">
                             <label for="nis">NIS</label>

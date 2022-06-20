@@ -41,7 +41,7 @@
                             <li class="list-group-item"><b>NIS: </b>{{$tabungan->nis}}</li>
                             <li class="list-group-item"><b>Kelas: </b>{{$tabungan->kelas->nama_kelas}}</li>
                             <li class="list-group-item"><b>Jurusan: </b>{{$tabungan->jurusan->nama_jurusan}}</li>
-                            <li class="list-group-item"><b>Nominal: </b><p>Rp. </p> {{$tabungan->nominal}}</li>
+                            <li class="list-group-item"><b>Nominal: </b>Rp. {{$tabungan->nominal}}</li>
                       </ul>
                       <a class="btn btn-secondary mt-3" href="{{ route('tabungan.index') }}">Kembali</a>
                 </div>
