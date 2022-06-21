@@ -63,7 +63,7 @@
                             {{-- <input type="kelas" name="kelas" class="form-control" id="kelas" value="{{ $tabungan->$kelas->nama_kelas }}" aria-describedby="kelas" > --}}
                             <select name="kelas" id="kelas" class="form-control">
                                 @foreach ($kelas as $kls)
-                                  <option value="{{$kls->id}}" {{$siswa->kelas_id == $kls->id ? 'selected' : ''}} >{{$kls->nama_kelas}}</option>
+                                  <option value="{{$kls->id}}" {{$tabungan->kelas_id == $kls->id ? 'selected' : ''}} >{{$kls->nama_kelas}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -72,7 +72,7 @@
                             {{-- <input type="jurusan" name="jurusan" class="form-control" id="jurusan"  value="{{ $tabungan->$jurusan->nama_jurusan }}" aria-describedby="jurusan" > --}}
                             <select name="jurusan" id="jurusan" class="form-control">
                                 @foreach ($jurusan as $jr)
-                                  <option value="{{$jr->id}}" {{$kelas->jurusan_id == $jr->id ? 'selected' : ''}} >{{$jr->nama_jurusan}}</option>
+                                  <option value="{{$jr->id}}" {{$tabungan->jurusan_id == $jr->id ? 'selected' : ''}} >{{$jr->nama_jurusan}}</option>
                                 @endforeach
                             </select>
                           </div>

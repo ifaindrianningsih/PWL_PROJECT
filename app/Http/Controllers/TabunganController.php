@@ -82,11 +82,12 @@ class TabunganController extends Controller
      */
     public function show($id)
     {
-        $tabungan = Tabungan::with('kelas')->where('nis',$id)->first();
+        $tabungan = Tabungan::all()->where('id',$id)->first();
         $kelas = $kelas = DB::table('kelas')->get();
         $jurusan = $jurusan = DB::table('jurusan')->get();
         $title = 'Data Tabungan';
         return view('tabungan.detail', compact('tabungan', 'kelas', 'jurusan', 'title'));
+        
     }
 
     /**
@@ -97,13 +98,14 @@ class TabunganController extends Controller
      */
     public function edit($id)
     {
-        $tabungan = Tabungan::all()->where('nis', $id)->first();
+        $tabungan = Tabungan::all()->where('id', $id)->first();
         $kelas = Kelas::all();
         $jurusan = Jurusan::all();
         $kls = $kelas = DB::table('kelas')->get();
         $jrs = $jrs = DB::table('jurusan')->get();
         $title = 'Data Tabungan';
         return view('tabungan.edit', compact('tabungan','kelas','jurusan','jrs','kls','title'));
+        
     }
 
     /**
@@ -118,15 +120,14 @@ class TabunganController extends Controller
         $request->validate([
             'nama_siswa' => 'required',
             'nis' => 'required',
-            'kelas_id' => 'required',
-            'jurusan_id' => 'required',
+            'kelas' => 'required',
+            'jurusan' => 'required',
             'nominal' => 'required',
         ]);
         
-        $tabungan = Tabungan::with('kelas')->where('nis',$id)->first();
+        $tabungan = Tabungan::with('kelas')->where('id',$id)->first();
         $tabungan->nama_siswa = $request->get('nama_siswa');
         $tabungan->nis = $request->get('nis');
-        $tabungan->nama = $request->get('nama');
 
         $kelas = new Kelas;
         $kelas->id = $request->get('kelas');
