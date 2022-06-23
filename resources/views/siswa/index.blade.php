@@ -54,9 +54,9 @@
               <table id="example2" class="table table-bordered table-hover">
                     <thead>
                     <tr>
+                        <th>Nama</th>
                         <th>Foto</th>
                         <th>NIS</th>
-                        <th>Nama</th>
                         <th>Jenis Kelamin</th>
                         <th>Kelas</th>
                         <th>Alamat</th>
@@ -67,9 +67,9 @@
                     <tbody>
                     @foreach ($paginate as $siswa)
                             <tr>
+                                <td>{{ $siswa ->nama }}</td>
                                 <td><img width="100px" height="100px" src="{{asset('storage/'.$siswa->foto)}}"></td>
                                 <td>{{ $siswa ->nis }}</td> 
-                                <td>{{ $siswa ->nama }}</td>
                                 <td>{{ $siswa ->jeniskelamin }}</td>
                                 <td>{{ $siswa ->kelas->nama_kelas }}</td>
                                 <td>{{ $siswa ->alamat }}</td>
