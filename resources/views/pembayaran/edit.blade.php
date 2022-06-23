@@ -62,14 +62,6 @@
                             <input type="text" name="tagihan" class="form-control" required="required"  value="{{ $pembayaran->tagihan }}" >
                         </div>
                         <div class="form-group">
-                            <label for="terbayar">Terbayar</label>
-                            <input type="text" name="terbayar" class="form-control" required="required"  value="{{ $pembayaran->terbayar }}" >
-                        </div>
-                        <div class="form-group">
-                            <label for="total">Total</label>
-                            <input type="text" name="total" class="form-control" required="required"  value="{{ $pembayaran->total }}" >
-                        </div>
-                        <div class="form-group">
                             <label for="status">Status</label>
                             <input type="text" name="status" class="form-control" required="required"  value="{{ $pembayaran->status }}" >
                         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pembayaran;
+use App\Models\SPP;
 use Illuminate\Support\Facades\DB;
 
 class PembayaranController extends Controller
@@ -45,18 +46,32 @@ class PembayaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, SPP $spp)
     {
         $request->validate([
             'nama_siswa' => 'required',
             'semester' => 'required',
             'tagihan' => 'required',
-            'terbayar' => 'required',
-            'total' => 'required',
+            // 'terbayar' => 'required',
+            // 'total' => 'required',
             'status' => 'required',
         ]);
 
-        Pembayaran::create($request->all());
+        $tagihan = Pembayaran::all();
+        $tagihan->nama_siswa = $request->get('nama_siswa');
+        $tagihan->semester = $request->get('semester');
+        $tagihan->tagihan = $request->get('tagihan');
+        
+        if($tagihan->terbayar=null){
+            $spp = SPP::where('nama_siswa',$id)->get('total_bayar');
+        }
+
+        $tagihan->terbayar = $spp;
+        $tagihan->status = $request->get('status');
+        $tagihan->total = $tagihan->tagihan - $tagihan->terbayar;
+        $tagihan->save();
+
+        // Pembayaran::create($request->all());
 
         return redirect()->route('pembayaran.index')
         ->with('success', 'Data Tagihan Berhasil Ditambahkan');
@@ -101,8 +116,8 @@ class PembayaranController extends Controller
             'nama_siswa' => 'required',
             'semester' => 'required',
             'tagihan' => 'required',
-            'terbayar' => 'required',
-            'total' => 'required',
+            // 'terbayar' => 'required',
+            // 'total' => 'required',
             'status' => 'required',
         ]);
 

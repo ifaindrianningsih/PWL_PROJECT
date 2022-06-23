@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Jurusan;
 use App\Models\Tabungan;
+use App\Models\SPP;
 
 class Kelas extends Model
 {
@@ -33,4 +34,10 @@ class Kelas extends Model
     {
         return $this->hasMany(Tabungan::class);
     }
+
+    public function spp()
+    {
+        return $this->hasMany(SPP::class);
+    }
+    
 }

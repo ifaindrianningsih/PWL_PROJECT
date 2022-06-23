@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Kelas;
 use App\Models\WaliMurid;
+use App\Models\SPP;
 
 class Siswa extends Model
 {
@@ -31,5 +32,10 @@ class Siswa extends Model
     public function walmur()
     {
         return $this->belongsTo(WaliMurid::class);
+    }
+
+    public function spp()
+    {
+        return $this->hasOne(SPP::class);
     }
 }

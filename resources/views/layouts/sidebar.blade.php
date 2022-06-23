@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{asset('template')}}/index.html" class="brand-link">
-      <img src="{{asset('template')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{asset('template')}}/dist/img/logo.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">E-SPP</span>
     </a>
 
@@ -97,7 +97,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('spp')}}" class="nav-link ">
+                <a href="{{ route('spp.index')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pembayaran SPP</p>
                 </a>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\SPP;
 
 class Pembayaran extends Model
 {
@@ -18,5 +19,10 @@ class Pembayaran extends Model
         'terbayar',
         'total',
         'status',
-        ];
+    ];
+
+    public function spp()
+    {
+        return $this->hasOne(SPP::class);
+    }
 }

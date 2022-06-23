@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Kelas;
 use App\Models\Tabungan;
+use App\Models\SPP;
 
 class Jurusan extends Model
 {
@@ -26,5 +27,10 @@ class Jurusan extends Model
     public function Tabungan()
     {
         return $this->hasMany(Tabungan::class);
+    }
+
+    public function spp()
+    {
+        return $this->hasMany(SPP::class);
     }
 }
