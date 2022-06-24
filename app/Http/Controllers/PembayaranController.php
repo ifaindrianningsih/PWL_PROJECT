@@ -62,14 +62,20 @@ class PembayaranController extends Controller
         $tagihan->semester = $request->get('semester');
         $tagihan->tagihan = $request->get('tagihan');
         
-        if($tagihan->terbayar=null){
-            $spp = SPP::where('nama_siswa',$id)->get('total_bayar');
-        }
+        // if($tagihan->terbayar=null){
+        //     $spp = SPP::where('nama_siswa',$id)->get('total_bayar');
+        // }
 
-        $tagihan->terbayar = $spp;
         $tagihan->status = $request->get('status');
-        $tagihan->total = $tagihan->tagihan - $tagihan->terbayar;
         $tagihan->save();
+
+        
+        $spp = SPP::all();
+        $th = Pembayaran::where('id',$spp->tagihan_id)->get('tagihan');
+        $n = SPP::where('tagihan_id', $tagihan->id)->get('total_bayar');
+        dd($th);
+        $total = $th['tagihan'] - $n['total_bayar'];
+        Pembayaran::where('id', $th->id)->update($total);
 
         // Pembayaran::create($request->all());
 

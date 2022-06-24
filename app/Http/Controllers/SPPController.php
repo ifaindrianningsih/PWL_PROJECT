@@ -70,11 +70,6 @@ class SPPController extends Controller
         $spp = new SPP;
         $spp->total_bayar = $request->get('total_bayar');
         
-        $tagihan = Pembayaran::all()->where('nama',$id)->get('total_bayar');
-        $tagihan = new Pembayaran;
-        $tagihan->total_bayar = $request->get('tagihan');
-        $tagihan->save();
-        
         $spp->tgl_transaksi = $request->get('tgl_transaksi');
 
         $nama = new Siswa;
@@ -86,17 +81,25 @@ class SPPController extends Controller
         $tagihan = new Pembayaran;
         $tagihan->id = $request->get('tagihan');
 
+        $th = Pembayaran::where('id',$spp->id)->get('tagihan');
+        $total = $th - $tagihan->total_bayar;
+
         $spp->siswa()->associate($nama);
         $spp->kelas()->associate($kelas);
         $spp->jurusan()->associate($jurusan);
         $spp->tagihan()->associate($tagihan);
         $spp->save();
 
-        $tagihan = SPP::where('tagihan_id',$request->tagihan_id);
-        $pemb = Pembayaran::where('id',$request-> id);
+        // $h = $spp->tagihan_id;
+        // $tagihan = SPP::find($h);
+        $th = $spp->id;
+        $tagihan = Pembayaran::where('tagihan',$spp->tagihan->id)->get('tagihan');
 
-        $total = $pemb['tagihan'] - $tagihan['total_bayar'];
-        Pembayaran::where('id', $pemb->id);
+        $n = SPP::where('tagihan_id', $tagihan)->get();
+        dd($n);
+        $total = $tagihan['tagihan'] - $tagihan['total_bayar'];
+        Pembayaran::where('id', $tagihan->id)->update($total);
+
         
         //fungsi eloquent untuk menambah data
         //Kelas::create($request->all());
