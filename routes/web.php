@@ -7,6 +7,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\TabunganController;
 use App\Http\Controllers\SPPController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -30,10 +31,10 @@ Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //
-Route::get('/dashboard', function () {
-    $title = 'Dashboard';
-    return view('layouts.dashboard', compact('title')); // mengganti link dashboard
-});
+// Route::get('/dashboard', function () {
+//     $title = 'Dashboard';
+//     return view('layouts.dashboard', compact('title')); // mengganti link dashboard
+// });
 
 // Route::get('/siswa', function () {
 //     $title = 'Data Siswa';
@@ -48,6 +49,8 @@ Route::get('/dashboard', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::resource('walimurid',WaliMuridController::class);
 
