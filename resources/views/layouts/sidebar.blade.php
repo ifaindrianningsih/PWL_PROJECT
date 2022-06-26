@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{asset('template')}}/index.html" class="brand-link">
-      <img src="{{asset('template')}}/dist/img/logo.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="{{asset('template')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">E-SPP</span>
     </a>
 
@@ -78,7 +78,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('pembayaran')}}" class="nav-link ">
+                <a href="{{ route('pembayaran.index')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Tagihan</p>
                 </a>
@@ -105,7 +105,7 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('tabungan')}}" class="nav-link ">
+                <a href="{{ route('spp.index')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tabungan Siswa</p>
                 </a>
@@ -118,13 +118,13 @@
             <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-file"></i>
               <p>
-                Pelaporan
+                Percetakan
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('cetak-spp')}}" class="nav-link ">
+                <a href="{{ url('data_spp')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cetak Kwitansi SPP</p>
                 </a>
@@ -132,17 +132,9 @@
             </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('cetak-tab')}}" class="nav-link ">
+                <a href="{{ url('data_tabungan')}}" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cetak Nota Tabungan</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url('laporan-spp')}}" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Laporan Pembayaran SPP</p>
                 </a>
               </li>
             </ul>
