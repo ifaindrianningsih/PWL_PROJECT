@@ -76,7 +76,7 @@
                             <label for="tagihan">Tagihan</label>
                             <select name="tagihan" id="tagihan" class="form-control">
                               @foreach ($tagihan as $th)
-                                <option value="{{$th->id}}">{{$th->nama_siswa}}</option>
+                                <option value="{{$th->id}}">{{$th->siswa->nama}}</option>
                               @endforeach
                             </select>
                         </div>

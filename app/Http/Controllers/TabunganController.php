@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Tabungan;
 use App\Models\Kelas;
 use App\Models\Jurusan;
+use App\Models\Siswa;
+use PDF;
 
 class TabunganController extends Controller
 {
@@ -17,12 +19,13 @@ class TabunganController extends Controller
      */
     public function index()
     {
-        $tabungan = $tabungan = Tabungan::all(); 
-        $kelas = $kelas = DB::table('kelas')->get();
-        $jurusan = $jurusan = DB::table('jurusan')->get();
+        $tabungan = Tabungan::all(); 
+        $siswa = DB::table('siswa')->get();
+        $kelas = DB::table('kelas')->get();
+        $jurusan = DB::table('jurusan')->get();
         $title = 'Transaksi Tabungan';
         $paginate = Tabungan::orderBy('id', 'asc')->paginate(3);
-        return view('tabungan.index', compact('tabungan','kelas','jurusan', 'title','paginate'));
+        return view('tabungan.index', compact('tabungan','siswa','kelas','jurusan', 'title','paginate'));
     }
 
     /**
@@ -33,9 +36,10 @@ class TabunganController extends Controller
     public function create()
     {
         $title = 'Transaksi Tabungan';
+        $siswa = Siswa::all();
         $kelas = Kelas::all();
         $jurusan = Jurusan::all();
-        return view('tabungan.create', compact('title','kelas','jurusan'));
+        return view('tabungan.create', compact('title','siswa','kelas','jurusan'));
     }
 
     /**
@@ -47,27 +51,28 @@ class TabunganController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_siswa' => 'required',
-            'nis' => 'required',
-            'kelas' => 'required',
+            'siswa' => 'required',
             'jurusan' => 'required',
-            'nominal' => 'required',
+            'kelas' => 'required',
+            // 'nominal' => 'required',
+            'transaksi_akhir' => 'required',
         ]);
 
         $tabungan = new Tabungan;
-        $tabungan->nama_siswa = $request->get('nama_siswa');
-        $tabungan->nis = $request->get('nis');
+        $tabungan->transaksi_akhir = $request->get('transaksi_akhir');
 
         $kelas = new Kelas;
         $kelas->id = $request->get('kelas');
-
         $jurusan = new Jurusan;
         $jurusan->id = $request->get('jurusan');
+        $siswa = new Siswa;
+        $siswa->id_siswa = $request->get('siswa');
 
-        $tabungan->nominal = $request->get('nominal');
+        $tabungan->nominal += $tabungan->transaksi_akhir;
 
         $tabungan->kelas()->associate($kelas);
         $tabungan->jurusan()->associate($jurusan);
+        $tabungan->siswa()->associate($siswa);
         $tabungan->save();
         
         return redirect()->route('tabungan.index')
@@ -83,10 +88,11 @@ class TabunganController extends Controller
     public function show($id)
     {
         $tabungan = Tabungan::all()->where('id',$id)->first();
-        $kelas = $kelas = DB::table('kelas')->get();
-        $jurusan = $jurusan = DB::table('jurusan')->get();
+        $siswa = DB::table('siswa')->get();
+        $kelas = DB::table('kelas')->get();
+        $jurusan = DB::table('jurusan')->get();
         $title = 'Data Tabungan';
-        return view('tabungan.detail', compact('tabungan', 'kelas', 'jurusan', 'title'));
+        return view('tabungan.detail', compact('tabungan', 'siswa', 'kelas', 'jurusan', 'title'));
         
     }
 
@@ -99,12 +105,14 @@ class TabunganController extends Controller
     public function edit($id)
     {
         $tabungan = Tabungan::all()->where('id', $id)->first();
+        $siswa = Siswa::all();
         $kelas = Kelas::all();
         $jurusan = Jurusan::all();
         $kls = $kelas = DB::table('kelas')->get();
         $jrs = $jrs = DB::table('jurusan')->get();
+        $sw = DB::table('siswa')->get();
         $title = 'Data Tabungan';
-        return view('tabungan.edit', compact('tabungan','kelas','jurusan','jrs','kls','title'));
+        return view('tabungan.edit', compact('tabungan','siswa','kelas','jurusan','jrs','kls','sw','title'));
         
     }
 
@@ -118,27 +126,28 @@ class TabunganController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_siswa' => 'required',
-            'nis' => 'required',
-            'kelas' => 'required',
+            'siswa' => 'required',
             'jurusan' => 'required',
-            'nominal' => 'required',
+            'kelas' => 'required',
+            // 'nominal' => 'required',
+            'transaksi_akhir' => 'required',
         ]);
         
-        $tabungan = Tabungan::with('kelas')->where('id',$id)->first();
-        $tabungan->nama_siswa = $request->get('nama_siswa');
-        $tabungan->nis = $request->get('nis');
+        $tabungan = Tabungan::all()->where('id',$id)->first();
+        $tabungan->transaksi_akhir = $request->get('transaksi_akhir');
 
         $kelas = new Kelas;
         $kelas->id = $request->get('kelas');
         $jurusan = new Jurusan;
         $jurusan->id = $request->get('jurusan');
+        $siswa = new Siswa;
+        $siswa->id_siswa = $request->get('siswa');
 
-        $tabungan->nominal = $request->get('nominal');
+        $tabungan->nominal += $tabungan->transaksi_akhir;
 
         $tabungan->kelas()->associate($kelas);
         $tabungan->jurusan()->associate($jurusan);
-        
+        $tabungan->siswa()->associate($siswa);
         $tabungan->save();
 
         //fungsi eloquent untuk mengupdate data inputan kita
@@ -163,12 +172,38 @@ class TabunganController extends Controller
 
     public function cari(Request $request)
     {
-        $keyword = $request->cari;
-        $paginate = Tabungan::where('nis', 'like', '%' . $keyword . '%')
-            ->orWhere('nama_siswa', 'like', '%' . $keyword . '%')
-            ->paginate(3);
-        $paginate->appends(['keyword' => $keyword]);
-        $title = 'Pencarian Data Tabungan Siswa';
+        $keyword = $request->cari; 
+        $siswa = Siswa::where('nama',$keyword)->get('id_siswa');
+        $paginate = Tabungan::where('siswa_id', 'like', '%' . $siswa . '%')->paginate(3);
+        $paginate->appends(['keyword' => $siswa]);
+        $title = 'Pencarian Data Siswa';
         return view('tabungan.index', compact('paginate','title'))->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    public function data_tabungan()
+    {
+        // Mengambil semua isi tabel
+        $tabungan = Tabungan::all(); 
+        $kelas = DB::table('kelas')->get();
+        $jurusan = DB::table('jurusan')->get();
+        $siswa = DB::table('siswa')->get();
+        $title = 'Data Transaksi Tabungan Siswa';
+        $paginate = Tabungan::orderBy('id', 'asc')->paginate(3);
+        return view('cetak_pdf.data-tabungan', compact('tabungan','siswa','kelas','jurusan','title','paginate'));
+    }
+
+    public function cetak_pdf($id)
+    {
+        $siswa = DB::table('siswa')->get();
+        $kelas = DB::table('kelas')->get();
+        $jurusan = DB::table('jurusan')->get();
+
+        $tab = Tabungan::all()->where('id',$id)->first();
+        $jml_sebelumnya = $tab->nominal - $tab->transaksi_akhir;
+        
+        $title = 'Cetak Nota Tabungan Siswa';
+        $tgl = date("d/m/y");
+        $pdf = PDF::loadview('tabungan.cetak_nota',compact('siswa','title', 'tab', 'kelas', 'jurusan','jml_sebelumnya','tgl'));
+        return $pdf->stream();
     }
 }

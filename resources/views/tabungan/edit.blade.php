@@ -51,19 +51,11 @@
                         @method('PUT')
                 
                         <div class="form-group">
-                            <label for="nama_siswa">Nama Siswa</label>
-                            <input type="text" name="nama_siswa" class="form-control" required="required" value="{{ $tabungan->nama_siswa }}" >
-                        </div>
-                        <div class="form-group">
-                            <label for="nis">NIS</label>
-                            <input type="text" name="nis" class="form-control" required="required" value="{{ $tabungan->nis }}" >
-                        </div>
-                        <div class="form-group">
-                            <label for="kelas">Kelas</label>
-                            {{-- <input type="kelas" name="kelas" class="form-control" id="kelas" value="{{ $tabungan->$kelas->nama_kelas }}" aria-describedby="kelas" > --}}
-                            <select name="kelas" id="kelas" class="form-control">
-                                @foreach ($kelas as $kls)
-                                  <option value="{{$kls->id}}" {{$tabungan->kelas_id == $kls->id ? 'selected' : ''}} >{{$kls->nama_kelas}}</option>
+                            <label for="siswa">Nama Siswa</label>
+                            {{-- <input type="siswa" name="siswa" class="form-control" id="siswa" value="{{ $tabungan->siswa }}" aria-describedby="siswa" > --}}
+                            <select name="siswa" id="siswa" class="form-control">
+                                @foreach ($siswa as $s)
+                                  <option value="{{$s->id_siswa}}" {{$tabungan->siswa_id == $s->id ? 'selected' : ''}} >{{$s->nama}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -77,10 +69,17 @@
                             </select>
                           </div>
                         <div class="form-group">
-                            <label for="nominal">Nominal</label>
-                            <input type="text" name="nominal" class="form-control" required="required" value="{{ $tabungan->alamat }}" >
+                            <label for="kelas">Kelas</label>
+                            {{-- <input type="kelas" name="kelas" class="form-control" id="kelas" value="{{ $tabungan->$kelas->nama_kelas }}" aria-describedby="kelas" > --}}
+                            <select name="kelas" id="kelas" class="form-control">
+                                @foreach ($kelas as $kls)
+                                  <option value="{{$kls->id}}" {{$tabungan->kelas_id == $kls->id ? 'selected' : ''}} >{{$kls->nama_kelas}}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        
+                        <div class="form-group">
+                            <label for="transaksi_akhir">Jumlah Menabung</label>
+                            <input type="double" name="transaksi_akhir" class="form-control" id="transaksi_akhir" aria-describedby="transaksi_akhir" >
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

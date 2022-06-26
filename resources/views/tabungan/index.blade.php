@@ -34,7 +34,7 @@
             </div>
         </div>
           <div class="card-body">
-                  <a class="btn btn-success" href="{{ route('tabungan.create')}}"> Tambah Tabungan</a> 
+                  <a class="btn btn-success" href="{{ route('tabungan.create')}}"> Tambah Siswa Menabung</a> 
                     <br></br>
 
                     @if ($message = Session::get('success'))
@@ -46,7 +46,7 @@
                   <form class="form" method="get" action="{{ route('tabungan.cari') }}">
                       <div class="form-group w-100 mb-3">
                           <label for="search" class="d-block mr-2">Pencarian Data Tabungan Siswa</label>
-                          <input type="text" name="cari" class="form-control w-50 d-inline" id="cari" placeholder="NIS/Nama">
+                          <input type="text" name="cari" class="form-control w-50 d-inline" id="cari" placeholder="Nama">
                           <button type="submit" class="btn btn-success mb-1">Cari</button>
                       </div>
                   </form>
@@ -55,21 +55,21 @@
                     <thead>
                     <tr>
                         <th>Nama</th>
-                        <th>NIS</th>
-                        <th>Kelas</th>
                         <th>Jurusan</th>
+                        <th>Kelas</th>
                         <th>Nominal</th>
+                        <th>Transaksi Terakhir</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($paginate as $tabungan)
                             <tr>
-                                <td>{{ $tabungan ->nama_siswa }}</td> 
-                                <td>{{ $tabungan ->nis }}</td>
-                                <td>{{ $tabungan ->kelas->nama_kelas }}</td>
+                                <td>{{ $tabungan ->siswa->nama }}</td> 
                                 <td>{{ $tabungan ->jurusan->nama_jurusan}}</td>
+                                <td>{{ $tabungan ->kelas->nama_kelas }}</td>
                                 <td>{{ $tabungan ->nominal }}</td>
+                                <td>{{ $tabungan ->transaksi_akhir }}</td>
                                 <td>
                                   <form action="{{ route('tabungan.destroy',$tabungan->id) }}" method="POST">
                                     <a class="btn btn-info" href="{{ route('tabungan.show',$tabungan->id) }}"><i class="fa fa-eye"></i></a>

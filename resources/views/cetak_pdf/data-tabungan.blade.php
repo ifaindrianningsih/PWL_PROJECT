@@ -34,15 +34,7 @@
             </div>
                 
           </div><!-- /.col -->
-          <div class="card-body">
-                  <a class="btn btn-primary" href="{{ route('spp.create')}}"> Tambah Siswa</a> 
-                    <br></br>
-
-                    @if ($message = Session::get('success'))
-                      <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                      </div>
-                    @endif 
+          <div class="card-body"> 
 
                   <form class="form" method="get" action="{{ route('spp.cari') }}">
                       <div class="form-group w-100 mb-3">
@@ -58,33 +50,21 @@
                                 <th>Nama Siswa</th>
                                 <th>Jurusan</th>
                                 <th>Kelas</th>
-                                <th>Tagihan</th>
-                                <th>Total Bayar</th>
-                                <th>Sisa Tagihan</th>
-                                <th>Status</th>
-                                <th>Waktu Transaksi</th>
-                                <th width="240px">Action</th>
+                                <th>Nominal</th>
+                                <th>Transaksi Terakhir</th>
+                                <th>Nota</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($paginate as $s)
+                            @foreach ($paginate as $tabungan)
                             <tr>
-                                <td>{{ $s ->siswa->nama }}</td>
-                                <td>{{ $s ->jurusan->nama_jurusan }}</td>
-                                <td>{{ $s ->kelas->nama_kelas }}</td>
-                                <td>{{ $s ->tagihan->tagihan }}</td>
-                                <td>{{ $s ->total_bayar }}</td>
-                                <td>{{ $s ->sisa_tagihan }}</td>
-                                <td>{{ $s ->status }}</td>
-                                <td>{{ $s ->tgl_transaksi }}</td>
+                                <td>{{ $tabungan ->siswa->nama }}</td> 
+                                <td>{{ $tabungan ->jurusan->nama_jurusan}}</td>
+                                <td>{{ $tabungan ->kelas->nama_kelas }}</td>
+                                <td>{{ $tabungan ->nominal }}</td>
+                                <td>{{ $tabungan ->transaksi_akhir }}</td>
                                 <td>
-                                <form action="{{ route('spp.destroy',$s->id) }}" method="POST">
-                                    <a class="btn btn-info" href="{{ route('spp.show',$s->id) }}"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-primary" href="{{ route('spp.edit',$s->id) }}"><i class="fa fa-edit"></i></a>
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                  </form>
+                                  <a target="_blank" class="btn btn-danger" href="{{url('nota-tabungan/cetak_pdf/'.$tabungan->id)}}">Cetak</a>
                                 </td>
                             </tr>
                             @endforeach

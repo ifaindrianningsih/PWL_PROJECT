@@ -42,6 +42,8 @@
                             <li class="list-group-item"><b>Kelas : </b>{{$spp->kelas->nama_kelas}}</li>
                             <li class="list-group-item"><b>Tagihan : </b>{{$spp->tagihan->tagihan}}</li>
                             <li class="list-group-item"><b>Total Bayar : </b>{{$spp->total_bayar}}</li>
+                            <li class="list-group-item"><b>Sisa Tagihan : </b>{{$spp->sisa_tagihan}}</li>
+                            <li class="list-group-item"><b>Status : </b>{{$spp->status}}</li>
                             <li class="list-group-item"><b>Waktu Transaksi : </b>{{$spp->tgl_transaksi}}</li>
                       </ul>
                       <a class="btn btn-secondary mt-3" href="{{ route('spp.index') }}">Kembali</a>

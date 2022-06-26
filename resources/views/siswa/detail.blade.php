@@ -37,12 +37,13 @@
                 </div>
                 <div class="card-body">
                       <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b><p align="center"> <img width="100px" src="{{asset('storage/'.$siswa->foto)}}"></li>
-                            <li class="list-group-item"><b>NIS: </b>{{$siswa->nis}}</li>
-                            <li class="list-group-item"><b>Nama Siswa: </b>{{$siswa->nama}}</li>
-                            <li class="list-group-item"><b>Jenis Kelamin: </b>{{$siswa->jeniskelamin}}</li>
-                            <li class="list-group-item"><b>Kelas: </b>{{$siswa->kelas->nama_kelas}}</li>
-                            <li class="list-group-item"><b>Nama Wali Murid: </b>{{$siswa->walmur->nama_ayah}}</li>
+                            <li class="list-group-item"><b><p align="center"> <img width="250px" src="{{asset('storage/'.$siswa->foto)}}"></li>
+                            <li class="list-group-item"><b>NIS : </b>{{$siswa->nis}}</li>
+                            <li class="list-group-item"><b>Nama Siswa : </b>{{$siswa->nama}}</li>
+                            <li class="list-group-item"><b>Jenis Kelamin : </b>{{$siswa->jeniskelamin}}</li>
+                            <li class="list-group-item"><b>Kelas : </b>{{$siswa->kelas->nama_kelas}}</li>
+                            <li class="list-group-item"><b>Nama Ayah: </b>{{$siswa->walmur->nama_ayah}}</li>
+                            <li class="list-group-item"><b>Nama Ibu: </b>{{$siswa->walmur->nama_ibu}}</li>
                       </ul>
                       <a class="btn btn-secondary mt-3" href="{{ route('siswa.index') }}">Kembali</a>
                 </div>

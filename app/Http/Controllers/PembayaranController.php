@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pembayaran;
 use App\Models\SPP;
+use App\Models\Siswa;
+use App\Models\Kelas;
+use App\Models\Jurusan;
 use Illuminate\Support\Facades\DB;
 
 class PembayaranController extends Controller
@@ -14,19 +17,23 @@ class PembayaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $pagination = 5;
-        $pembayaran = Pembayaran::when($request->keyword, function($query) use ($request){
-            $query
-            ->where('id','like',"%{$request->keyword}%")
-            ->orWhere('nama_siswa','like',"%{$request->keyword}%");
-        })->orderBy('id')->paginate($pagination);
+        // $pagination = 5;
+        $pembayaran = Pembayaran::all();
+        // $pembayaran = Pembayaran::all()->when($request->keyword, function($query) use ($request){
+        //     $query
+        //     ->where('id','like',"%{$request->keyword}%")
+        //     ->orWhere('nama_siswa','like',"%{$request->keyword}%");
+        // })->orderBy('id')->paginate($pagination);
 
 
-            $title = 'Data Tagihan Siswa';
-            return view('pembayaran.index',compact('pembayaran','title'))
-                ->with('i',(request()->input('page',1)-1)*$pagination);
+        $kelas = DB::table('kelas')->get();
+        $jurusan = DB::table('jurusan')->get();
+        $siswa = DB::table('siswa')->get();
+        $title = 'Data Tagihan Siswa';
+        $paginate = Pembayaran::orderBy('id', 'asc')->paginate(5);
+        return view('pembayaran.index',compact('pembayaran','paginate','title','kelas','jurusan','siswa'));
     }
 
     /**
@@ -37,7 +44,10 @@ class PembayaranController extends Controller
     public function create()
     {
         $title = 'Data Tagihan Siswa';
-        return view('pembayaran.create', compact('title'));
+        $siswa = Siswa::all();
+        $kelas = Kelas::all();
+        $jurusan = Jurusan::all();
+        return view('pembayaran.create', compact('title','kelas','jurusan','siswa'));
     }
 
     /**
@@ -46,39 +56,34 @@ class PembayaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, SPP $spp)
+    public function store(Request $request)
     {
         $request->validate([
-            'nama_siswa' => 'required',
+            'siswa' => 'required',
             'semester' => 'required',
+            'jurusan' => 'required',
+            'kelas' => 'required',
             'tagihan' => 'required',
-            // 'terbayar' => 'required',
-            // 'total' => 'required',
             'status' => 'required',
         ]);
-
-        $tagihan = Pembayaran::all();
-        $tagihan->nama_siswa = $request->get('nama_siswa');
-        $tagihan->semester = $request->get('semester');
-        $tagihan->tagihan = $request->get('tagihan');
         
-        // if($tagihan->terbayar=null){
-        //     $spp = SPP::where('nama_siswa',$id)->get('total_bayar');
-        // }
+        $pemb = new Pembayaran;
+        $pemb->semester = $request->get('semester');
+        $pemb->tagihan = $request->get('tagihan');
+        $pemb->status = $request->get('status');
 
-        $tagihan->status = $request->get('status');
-        $tagihan->save();
+        $siswa = new Siswa;
+        $siswa->id_siswa = $request->get('siswa');
+        $kelas = new Kelas;
+        $kelas->id = $request->get('kelas');
+        $jurusan = new Jurusan;
+        $jurusan->id = $request->get('jurusan');
 
         
-        $spp = SPP::all();
-        $th = Pembayaran::where('id',$spp->tagihan_id)->get('tagihan');
-        $n = SPP::where('tagihan_id', $tagihan->id)->get('total_bayar');
-        dd($th);
-        $total = $th['tagihan'] - $n['total_bayar'];
-        Pembayaran::where('id', $th->id)->update($total);
-
-        // Pembayaran::create($request->all());
-
+        $pemb->siswa()->associate($siswa);
+        $pemb->kelas()->associate($kelas);
+        $pemb->jurusan()->associate($jurusan);
+        $pemb->save();
         return redirect()->route('pembayaran.index')
         ->with('success', 'Data Tagihan Berhasil Ditambahkan');
     }
@@ -91,9 +96,12 @@ class PembayaranController extends Controller
      */
     public function show($id)
     {
-        $pembayaran = Pembayaran::find($id);
+        $pembayaran = Pembayaran::all()->find($id);
+        $kelas = DB::table('kelas')->get();
+        $jurusan = DB::table('jurusan')->get();
+        $siswa = DB::table('siswa')->get();
         $title = 'Data Tagihan Siswa';
-        return view('pembayaran.detail', compact('pembayaran', 'title'));
+        return view('pembayaran.detail', compact('pembayaran', 'title','kelas','jurusan','siswa'));
     }
 
     /**
@@ -104,9 +112,15 @@ class PembayaranController extends Controller
      */
     public function edit($id)
     {
-        $pembayaran = DB::table('pembayaran')->where('id', $id)->first();;
+        $pembayaran = Pembayaran::all()->where('id', $id)->first();
+        $kelas = Kelas::all();
+        $jurusan = Jurusan::all();
+        $siswa = Siswa::all();
+        $kls = DB::table('kelas')->get();
+        $jrs = DB::table('jurusan')->get();
+        $sw = DB::table('siswa')->get();
         $title = 'Data Tagihan Siswa';
-        return view('pembayaran.edit', compact('pembayaran','title'));
+        return view('pembayaran.edit', compact('pembayaran','title','kelas','jurusan','siswa','kls','jrs','sw'));
     }
 
     /**
@@ -119,15 +133,31 @@ class PembayaranController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_siswa' => 'required',
+            'siswa' => 'required',
             'semester' => 'required',
+            'jurusan' => 'required',
+            'kelas' => 'required',
             'tagihan' => 'required',
-            // 'terbayar' => 'required',
-            // 'total' => 'required',
             'status' => 'required',
         ]);
 
-        Pembayaran::find($id)->update($request->all());
+        $pemb = Pembayaran::all()->where('id',$id)->first();
+        $pemb->semester = $request->get('semester');
+        $pemb->tagihan = $request->get('tagihan');
+        $pemb->status = $request->get('status');
+
+        $siswa = new Siswa;
+        $siswa->id_siswa = $request->get('siswa');
+        $kelas = new Kelas;
+        $kelas->id = $request->get('kelas');
+        $jurusan = new Jurusan;
+        $jurusan->id = $request->get('jurusan');
+
+        
+        $pemb->siswa()->associate($siswa);
+        $pemb->kelas()->associate($kelas);
+        $pemb->jurusan()->associate($jurusan);
+        $pemb->save();
         
         return redirect()->route('pembayaran.index')
             ->with('success', 'Data Tagihan Berhasil Diupdate');

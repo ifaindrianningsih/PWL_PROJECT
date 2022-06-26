@@ -82,7 +82,7 @@
                             {{-- <input type="tagihan" name="tagihan" class="form-control" id="tagihan" value="{{ $spp->$tagihan->tagihan }}" aria-describedby="tagihan" > --}}
                             <select name="tagihan" id="tagihan" class="form-control">
                                 @foreach ($tagihan as $th)
-                                  <option value="{{$th->id}}" {{$spp->tagihan_id == $th->id ? 'selected' : ''}} >{{$th->nama_siswa}}</option>
+                                  <option value="{{$th->id}}" {{$spp->tagihan_id == $th->id ? 'selected' : ''}} >{{$th->siswa->nama}}</option>
                                 @endforeach
                             </select>
                         </div>

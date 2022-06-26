@@ -37,11 +37,11 @@
                 </div>
                 <div class="card-body">
                       <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Nama Siswa: </b>{{$tabungan->nama_siswa}}</li>
-                            <li class="list-group-item"><b>NIS: </b>{{$tabungan->nis}}</li>
-                            <li class="list-group-item"><b>Kelas: </b>{{$tabungan->kelas->nama_kelas}}</li>
-                            <li class="list-group-item"><b>Jurusan: </b>{{$tabungan->jurusan->nama_jurusan}}</li>
-                            <li class="list-group-item"><b>Nominal: </b>Rp. {{$tabungan->nominal}}</li>
+                            <li class="list-group-item"><b>Nama Siswa : </b>{{$tabungan->siswa->nama}}</li>
+                            <li class="list-group-item"><b>Jurusan : </b>{{$tabungan->jurusan->nama_jurusan}}</li>
+                            <li class="list-group-item"><b>Kelas : </b>{{$tabungan->kelas->nama_kelas}}</li>
+                            <li class="list-group-item"><b>Nominal : </b>Rp. {{$tabungan->nominal}}</li>
+                            <li class="list-group-item"><b>Transaksi Terakhir : </b>Rp. {{$tabungan->transaksi_akhir}}</li>
                       </ul>
                       <a class="btn btn-secondary mt-3" href="{{ route('tabungan.index') }}">Kembali</a>
                 </div>

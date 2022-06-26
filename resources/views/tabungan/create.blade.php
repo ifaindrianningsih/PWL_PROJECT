@@ -49,18 +49,10 @@
                     <form action="{{ route('tabungan.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="nama">Nama Siswa</label>
-                            <input type="text" name="nama_siswa" class="form-control" id="nama" aria-describedby="nama" >
-                        </div>
-                        <div class="form-group">
-                            <label for="nis">NIS</label>
-                            <input type="text" name="nis" class="form-control" id="nis" aria-describedby="nis" >
-                        </div>
-                        <div class="form-group">
-                            <label for="kelas">Kelas</label>
-                            <select name="kelas" id="kelas" class="form-control">
-                              @foreach ($kelas as $kls)
-                                <option value="{{$kls->id}}">{{$kls->nama_kelas}}</option>
+                            <label for="siswa">Nama Siswa</label>
+                            <select name="siswa" id="siswa" class="form-control">
+                              @foreach ($siswa as $sw)
+                                <option value="{{$sw->id_siswa}}">{{$sw->nama}}</option>
                               @endforeach
                             </select>
                         </div>
@@ -73,8 +65,16 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="nominal">Nominal</label>
-                            <input type="text" name="nominal" class="form-control" id="nominal" aria-describedby="nominal" >
+                            <label for="kelas">Kelas</label>
+                            <select name="kelas" id="kelas" class="form-control">
+                              @foreach ($kelas as $kls)
+                                <option value="{{$kls->id}}">{{$kls->nama_kelas}}</option>
+                              @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="transaksi_akhir">Jumlah Menabung</label>
+                            <input type="double" name="transaksi_akhir" class="form-control" id="transaksi_akhir" aria-describedby="transaksi_akhir" >
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
