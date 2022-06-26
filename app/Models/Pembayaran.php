@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\SPP;
+use App\Models\Kelas;
+use App\Models\Jurusan;
+use App\Models\Siswa;
 
 class Pembayaran extends Model
 {
@@ -13,13 +16,28 @@ class Pembayaran extends Model
     protected $primaryKey = 'id'; 
 
     protected $fillable = [
-        'nama_siswa',
+        'siswa',
         'semester',
         'tagihan',
-        'terbayar',
-        'total',
+        'jurusan',
+        'kelas',
         'status',
     ];
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'siswa_id');
+    }
+
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class);
+    }
 
     public function spp()
     {

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Jurusan;
 use App\Models\Tabungan;
 use App\Models\SPP;
+use App\Models\Pembayaran;
 
 class Kelas extends Model
 {
@@ -38,6 +39,11 @@ class Kelas extends Model
     public function spp()
     {
         return $this->hasMany(SPP::class);
+    }
+
+    public function pembayaran()
+    {
+        return $this->hasMany(Pembayaran::class);
     }
     
 }

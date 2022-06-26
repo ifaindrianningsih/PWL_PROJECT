@@ -37,11 +37,11 @@
                 </div>
                 <div class="card-body">
                       <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Nama Siswa     : </b>{{$pembayaran->nama_siswa}}</li>
+                            <li class="list-group-item"><b>Nama Siswa     : </b>{{$pembayaran->siswa->nama}}</li>
                             <li class="list-group-item"><b>Semester       : </b>{{$pembayaran->semester}}</li>
+                            <li class="list-group-item"><b>Jurusan       : </b>{{$pembayaran->jurusan->nama_jurusan}}</li>
+                            <li class="list-group-item"><b>Kelas         : </b>{{$pembayaran->kelas->nama_kelas}}</li>
                             <li class="list-group-item"><b>Tagihan        : </b><t>Rp. </t>{{$pembayaran->tagihan}}</li>
-                            <li class="list-group-item"><b>Terbayar       : </b><t>Rp. </t>{{$pembayaran->terbayar}}</li>
-                            <li class="list-group-item"><b>Total          : </b><t>Rp. </t>{{$pembayaran->total}}</li>
                             <li class="list-group-item"><b>Status         : </b>{{$pembayaran->status}}</li>
                       </ul>
                       <a class="btn btn-secondary mt-3" href="{{ route('pembayaran.index') }}">Kembali</a>

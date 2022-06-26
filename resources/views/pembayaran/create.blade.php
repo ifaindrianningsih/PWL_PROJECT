@@ -49,20 +49,43 @@
                     <form method="post" action="{{ route('pembayaran.store') }}" id="myForm">
                     @csrf   
                         <div class="form-group">
-                            <label for="nama_siswa">Nama Siswa</label>
-                            <input type="text" name="nama_siswa" class="form-control" id="nama_siswa" aria-describedby="nama_siswa" >
+                            <label for="siswa">Nama Siswa</label>
+                            <select name="siswa" id="siswa" class="form-control">
+                              @foreach ($siswa as $sw)
+                                <option value="{{$sw->id_siswa}}">{{$sw->nama}}</option>
+                              @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="semester">Semester</label>
                             <input type="text" name="semester" class="form-control" id="semester" aria-describedby="semester" >
                         </div>
                         <div class="form-group">
+                            <label for="jurusan">Jurusan</label>
+                            <select name="jurusan" id="jurusan" class="form-control">
+                              @foreach ($jurusan as $jrs)
+                                <option value="{{$jrs->id}}">{{$jrs->nama_jurusan}}</option>
+                              @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="kelas">Kelas</label>
+                            <select name="kelas" id="kelas" class="form-control">
+                              @foreach ($kelas as $kls)
+                                <option value="{{$kls->id}}">{{$kls->nama_kelas}}</option>
+                              @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="tagihan">Tagihan</label>
-                            <input type="text" name="tagihan" class="form-control" id="tagihan" aria-describedby="tagihan" >
+                            <input type="number" name="tagihan" class="form-control" id="tagihan" aria-describedby="tagihan" >
                         </div>
                         <div class="form-group">
                             <label for="status">Status</label>
-                            <input type="text" name="status" class="form-control" id="status" aria-describedby="status" >
+                            <select name="status" id="status" class="form-control">
+                                <option value="Belum Lunas">Belum Lunas</option>
+                                <option value="Lunas">Lunas</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

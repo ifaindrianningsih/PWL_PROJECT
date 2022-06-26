@@ -21,6 +21,8 @@ class SPP extends Model
         'jurusan_id',
         'tagihan_id',
         'total_bayar',
+        'sisa_tagihan',
+        'status',
         'tgl_transaksi',
     ];
 
