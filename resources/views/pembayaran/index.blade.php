@@ -63,7 +63,7 @@
                                 <td>{{ $pmb ->semester }}</td>
                                 <td>{{ $pmb ->jurusan->nama_jurusan }}</td>
                                 <td>{{ $pmb ->kelas->nama_kelas }}</td>
-                                <td>{{ $pmb ->tagihan }}</td>
+                                <td><t>Rp. </t>{{ $pmb ->tagihan }}</td>
                                 <td>{{ $pmb ->status }}</td>
                                 <td>
                                 <form action="{{ route('pembayaran.destroy',$pmb->id) }}" method="POST">

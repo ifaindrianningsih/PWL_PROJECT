@@ -8,6 +8,7 @@ use App\Models\Tabungan;
 use App\Models\Kelas;
 use App\Models\Jurusan;
 use App\Models\Siswa;
+use Dompdf\Adapter\PDFLib;
 use PDF;
 
 class TabunganController extends Controller

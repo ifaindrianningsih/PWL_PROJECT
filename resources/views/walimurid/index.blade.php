@@ -72,12 +72,12 @@
                             <tr>
                                 <td>{{ $wm ->id }}</td> 
                                 <td>{{ $wm ->nama_siswa }}</td>
-                                <td>{{ $wm ->nama_ayah }}</td>
+                                <td>{{ $wm ->nama_ayah }} </td>
                                 <td>{{ $wm ->pekerjaan_ayah }}</td>
-                                <td>{{ $wm ->umur_ayah }}</td>
+                                <td>{{ $wm ->umur_ayah }}</t> tahun</t></td>
                                 <td>{{ $wm ->nama_ibu }}</td>
                                 <td>{{ $wm ->pekerjaan_ibu }}</td>
-                                <td>{{ $wm ->umur_ibu }}</td>
+                                <td>{{ $wm ->umur_ibu }}</t> tahun</t></td>
                                 <td>{{ $wm ->alamat }}</td>
                                 <td>
                                   <form action="{{ route('walimurid.destroy',$wm->id) }}" method="POST">

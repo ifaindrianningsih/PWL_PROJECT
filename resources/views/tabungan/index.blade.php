@@ -68,8 +68,8 @@
                                 <td>{{ $tabungan ->siswa->nama }}</td> 
                                 <td>{{ $tabungan ->jurusan->nama_jurusan}}</td>
                                 <td>{{ $tabungan ->kelas->nama_kelas }}</td>
-                                <td>{{ $tabungan ->nominal }}</td>
-                                <td>{{ $tabungan ->transaksi_akhir }}</td>
+                                <td><t>Rp. </t>{{ $tabungan ->nominal }}</td>
+                                <td><t>Rp. </t>{{ $tabungan ->transaksi_akhir }}</td>
                                 <td>
                                   <form action="{{ route('tabungan.destroy',$tabungan->id) }}" method="POST">
                                     <a class="btn btn-info" href="{{ route('tabungan.show',$tabungan->id) }}"><i class="fa fa-eye"></i></a>

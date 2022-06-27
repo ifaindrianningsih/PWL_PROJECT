@@ -63,7 +63,7 @@
                                 <th>Sisa Tagihan</th>
                                 <th>Status</th>
                                 <th>Waktu Transaksi</th>
-                                <th width="240px">Action</th>
+                                <th width="220px">Action</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -72,9 +72,9 @@
                                 <td>{{ $s ->siswa->nama }}</td>
                                 <td>{{ $s ->jurusan->nama_jurusan }}</td>
                                 <td>{{ $s ->kelas->nama_kelas }}</td>
-                                <td>{{ $s ->tagihan->tagihan }}</td>
-                                <td>{{ $s ->total_bayar }}</td>
-                                <td>{{ $s ->sisa_tagihan }}</td>
+                                <td><t>Rp. </t>{{ $s ->tagihan->tagihan }}</td>
+                                <td><t>Rp. </t>{{ $s ->total_bayar }}</td>
+                                <td><t>Rp. </t>{{ $s ->sisa_tagihan }}</td>
                                 <td>{{ $s ->status }}</td>
                                 <td>{{ $s ->tgl_transaksi }}</td>
                                 <td>
