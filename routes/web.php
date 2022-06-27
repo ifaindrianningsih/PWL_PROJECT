@@ -8,6 +8,7 @@ use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\TabunganController;
 use App\Http\Controllers\SPPController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PenggunaController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -59,6 +60,7 @@ Route::resource('siswa', SiswaController::class);
 Route::resource('spp', SPPController::class);
 Route::get('siswa/cari/data', [SiswaController::class, 'cari'])->name('siswa.cari');
 Route::get('kelas/cari/data', [KelasController::class, 'cari'])->name('kelas.cari');
+Route::get('pengguna/cari/data', [PenggunaController::class, 'pengguna'])->name('pengguna.cari');
 Route::get('spp/cari/data', [SPPController::class, 'cari'])->name('spp.cari');
 Route::get('data_spp', [SPPController::class, 'data_spp'])->name('spp.data_spp');
 Route::get('cetak_pdf', [SPPController::class, 'cetak_pdf'])->name('spp.cetak_pdf');
@@ -66,7 +68,7 @@ Route::get('/kwitansi-spp/cetak_pdf/{id}',[SPPController::class,'cetak_pdf']);
 Route::get('data_tabungan', [TabunganController::class, 'data_tabungan'])->name('spp.data_tabungan');
 Route::get('/nota-tabungan/cetak_pdf/{id}',[TabunganController::class,'cetak_pdf']);
 Route::get('cetak_pdf_tab', [TabunganController::class, 'cetak_pdf'])->name('tabungan.cetak_pdf');
-
+Route::resource('pengguna', PenggunaController::class);
 Route::resource('pembayaran',PembayaranController::class);
 
 Route::resource('tabungan', TabunganController::class);
