@@ -51,8 +51,8 @@
                         <tr>
                             <th>No</th>
                             <th>Nama Pengguna</th>
-                            <th>Jabatan</th>
-                            <th>Username</th>
+                            <th>E-Mail</th>
+                            <th>Password</th>
                             <th width="140px">Action</th>
                         </tr>
                     </thead>
@@ -60,9 +60,9 @@
                         @foreach ($pengguna as $pg)
                             <tr>
                                 <td>{{ $pg ->id }}</td> 
-                                <td>{{ $pg ->nama_pengguna }}</td>
-                                <td>{{ $pg ->jabatan }}</td>
-                                <td>{{ $pg ->username }}</td>
+                                <td>{{ $pg ->name }}</td>
+                                <td>{{ $pg ->email }}</td>
+                                <td>{{ $pg ->password }}</td>
                                 <td>
                                 <form action="{{ route('pengguna.destroy',$pg->id) }}" method="POST">
                                     <a class="btn btn-info" href="{{ route('pengguna.show',$pg->id) }}"><i class="fa fa-eye"></i></a>

@@ -17,23 +17,22 @@ class PembayaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $pagination = 5;
-        $pembayaran = Pembayaran::all();
-        // $pembayaran = Pembayaran::all()->when($request->keyword, function($query) use ($request){
-        //     $query
-        //     ->where('id','like',"%{$request->keyword}%")
-        //     ->orWhere('nama_siswa','like',"%{$request->keyword}%");
-        // })->orderBy('id')->paginate($pagination);
+        $pagination = 5;
+        $pembayaran = Pembayaran::when($request->keyword, function($query) use ($request){
+            $query
+            ->where('id','like',"%{$request->keyword}%")
+            ->orWhere('nama_pengguna','like',"%{$request->keyword}%");
+        })->orderBy('id')->paginate($pagination);
 
 
-        $kelas = DB::table('kelas')->get();
-        $jurusan = DB::table('jurusan')->get();
-        $siswa = DB::table('siswa')->get();
-        $title = 'Data Tagihan Siswa';
-        $paginate = Pembayaran::orderBy('id', 'asc')->paginate(5);
-        return view('pembayaran.index',compact('pembayaran','paginate','title','kelas','jurusan','siswa'));
+            $title = 'Data Tagihan';
+            return view('pembayaran.index',compact('pembayaran','title'))
+                ->with('i',(request()->input('page',1)-1)*$pagination);
+
+        $pagination = 5;
+       
     }
 
     /**
@@ -174,5 +173,15 @@ class PembayaranController extends Controller
         Pembayaran::find($id)->delete();
         return redirect()->route('pembayaran.index')
         -> with('success', 'Data Tagihan Berhasil Dihapus');
+    }
+
+    public function cari(Request $request, Pembayaran $pembayaran)
+    {
+        $keyword = $request->cari; 
+        $siswa = Siswa::where('nama',$keyword)->get('id_siswa');
+        $paginate = Pembayaran::where('nama', 'like', '%' . $siswa . '%')->paginate(3);
+        $paginate->appends(['keyword' => $siswa]);
+        $title = 'Pencarian Data Tagihan';
+        return view('pembayaran.index', compact('paginate','title'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }

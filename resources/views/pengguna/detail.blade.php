@@ -37,9 +37,9 @@
                 </div>
                 <div class="card-body">
                       <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><b>Nama Pengguna : </b>{{$pengguna->nama_pengguna}}</li>
-                            <li class="list-group-item"><b>Jabatan       : </b>{{$pengguna->jabatan}}</li>
-                            <li class="list-group-item"><b>Username      : </b>{{$pengguna->username}}</li>
+                            <li class="list-group-item"><b>Nama Pengguna : </b>{{$pengguna->name}}</li>
+                            <li class="list-group-item"><b>E-Mail      : </b>{{$pengguna->email}}</li>
+                            <li class="list-group-item"><b>Password     : </b>{{$pengguna->password}}</li>
                       </ul>
                       <a class="btn btn-secondary mt-3" href="{{ route('pengguna.index') }}">Kembali</a>
                 </div>

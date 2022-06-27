@@ -42,10 +42,10 @@
                         <p>{{ $message }}</p>
                       </div>
                     @endif
+              <div class="card-body">
                     <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <th>No</th>
                                 <th>Nama Siswa</th>
                                 <th>Semester</th>
                                 <th>Jurusan</th>
@@ -56,9 +56,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($paginate as $pmb)
+                            @foreach ($pembayaran as $pmb)
                             <tr>
-                                <td>{{ $pmb ->id }}</td> 
                                 <td>{{ $pmb ->siswa->nama }}</td>
                                 <td>{{ $pmb ->semester }}</td>
                                 <td>{{ $pmb ->jurusan->nama_jurusan }}</td>
@@ -83,9 +82,15 @@
                 <div class="paginate">
                 <div class="container">
                     <div class="row">
+                        <div class="detail-data col-md-12">
+                            <p>Page : {!! $pembayaran->currentPage() !!} <br />
+                                Jumlah Data : {!! $pembayaran->total() !!} <br />
+                                Data Per Halaman : {!! $pembayaran->perPage() !!} <br />
+                            </p>
+                        </div>
                         <div class="mx-auto">
                             <div class="paginate-button col-md-12">
-                                {{ $paginate->links() }}
+                                {{ $pembayaran->links() }}
                             </div>
                         </div>
                     </div>

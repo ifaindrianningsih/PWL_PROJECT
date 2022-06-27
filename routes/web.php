@@ -61,6 +61,7 @@ Route::resource('spp', SPPController::class);
 Route::get('siswa/cari/data', [SiswaController::class, 'cari'])->name('siswa.cari');
 Route::get('kelas/cari/data', [KelasController::class, 'cari'])->name('kelas.cari');
 Route::get('pengguna/cari/data', [PenggunaController::class, 'pengguna'])->name('pengguna.cari');
+Route::get('pembayaran/cari/data', [PembayaranController::class, 'cari'])->name('pembayaran.cari');
 Route::get('spp/cari/data', [SPPController::class, 'cari'])->name('spp.cari');
 Route::get('data_spp', [SPPController::class, 'data_spp'])->name('spp.data_spp');
 Route::get('cetak_pdf', [SPPController::class, 'cetak_pdf'])->name('spp.cetak_pdf');

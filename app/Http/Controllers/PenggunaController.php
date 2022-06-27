@@ -13,10 +13,10 @@ class PenggunaController extends Controller
         $pengguna = Pengguna::when($request->keyword, function($query) use ($request){
             $query
             ->where('id','like',"%{$request->keyword}%")
-            ->orWhere('nama_pengguna','like',"%{$request->keyword}%")
-            ->orWhere('jabatan','like',"%{$request->keyword}%")
-            ->orWhere('usernmae','like',"%{$request->keyword}%");
+            ->orWhere('name','like',"%{$request->keyword}%")
+            ->orWhere('email','like',"%{$request->keyword}%");
         })->orderBy('id')->paginate($pagination);
+        
 
 
             $title = 'Data Pengguna';
@@ -35,7 +35,7 @@ class PenggunaController extends Controller
     public function cari(Request $request)
     {
         $keyword = $request->cari;
-        $paginate = Pengguna::where('nama_pengguna', 'like', '%' . $keyword . '%')
+        $paginate = Pengguna::where('name', 'like', '%' . $keyword . '%')
             ->orWhere('username', 'like', '%' . $keyword . '%')
             ->paginate(3);
         $paginate->appends(['keyword' => $keyword]);
